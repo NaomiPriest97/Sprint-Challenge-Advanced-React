@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
+
 import axios from 'axios';
 import Navbar from './components/Navbar';
 import Form from './components/Form';
@@ -24,6 +25,7 @@ const App = () => {
     <div className="App">
      <Navbar />
      <Form />
+
     </div>
   );
 }

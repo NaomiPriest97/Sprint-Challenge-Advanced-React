@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 
+
 const Form = ({ errors, touched, values }) => {
   const [players, setPlayers] = useState([
     {
@@ -22,7 +23,7 @@ const Form = ({ errors, touched, values }) => {
       ...player,
       id: Date.now()
     };
-    setPlayer([...players, newPlayer]);
+    setPlayers([...players, newPlayer]);
   };
 
   return (
