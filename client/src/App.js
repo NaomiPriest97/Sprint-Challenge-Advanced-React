@@ -1,26 +1,60 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import axios from 'axios';
+import Navbar from './components/Navbar';
+import Form from './components/Form';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+class App extends React.Component {
+  constructor(props){
+    super(props)
+    this.state = {
+      players: []
+    };
+    this.handleChanges = this.handleChanges.bind(this);
+  }
+  
+  handleChanges = e => {
+    this.setState({
+      userText: e.target.value
+    });
+  };
+
+  componentDidMount() {
+    axios
+    .get(`http://localhost:5000/api/players`)
+    .then(res =>{
+      console.log(res.data);
+      this.setState({
+        players: res.data
+      })
+    })
+    .catch(err => console.log(err.message));  
+  }
+
+ 
+
+
+  render() {
+    const {players} = this.state;
+    return (
+      <div className="App">
+      <Navbar />
+      <Form />
+      <div className = "player">
+        {players.map((player, index) => {
+          return (
+            <div key = {index} className = "playerCard">
+              <h2>{player.name}</h2>
+              <h3>{player.country}</h3>
+              <h3>{player.searches}</h3>
+            </div>
+          )
+        })}
+      </div>
+      </div>
+      
+    )
+  };  
+};
 
 export default App;
